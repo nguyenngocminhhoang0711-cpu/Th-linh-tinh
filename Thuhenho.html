@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thư rủ rê chị đẹp</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7fafc;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="max-w-md w-full p-6 bg-white rounded-xl shadow-lg text-center">
+        
+        <!-- Trang 1 -->
+        <div id="page1">
+            <h1 class="text-3xl font-bold text-pink-500 mb-4">Thư rủ rê chị đẹp đii tơi cuối tuần =))</h1>
+            <p class="text-xl text-gray-700 mb-8">Chị có muốn đi vào cuối tuần này hong?</p>
+            <div class="space-y-4">
+                <button onclick="handleYesClick()" class="w-full bg-pink-500 text-white font-bold py-3 px-6 rounded-full hover:bg-pink-600 transition-colors duration-300">
+                    Có chứ
+                </button>
+                <button onclick="showMessage('no')" class="w-full bg-gray-300 text-gray-700 font-bold py-3 px-6 rounded-full hover:bg-gray-400 transition-colors duration-300">
+                    Hông
+                </button>
+            </div>
+        </div>
+
+        <!-- Trang 2 (Chọn kế hoạch) -->
+        <div id="page2" style="display: none;">
+            <h1 class="text-3xl font-bold text-green-500 mb-4">Tuyệt vời! Em biết mà!</h1>
+            <p class="text-lg text-gray-700 mb-6">Vậy chúng ta đi tơi vào cuối tuần này nhé? Em có 2 plans cho chị chọn:</p>
+            
+            <div class="text-left bg-gray-50 p-4 rounded-lg mb-4">
+                <p class="font-semibold text-gray-800 mb-2">Plane 1:</p>
+                <p class="text-gray-600">Đầu tiên mình sẽ đi kiếm gì ăn, sau đó sẽ đi cafe chill chill, rồi cuối cùng sẽ đi dạo.</p>
+            </div>
+            
+            <div class="text-left bg-gray-50 p-4 rounded-lg mb-6">
+                <p class="font-semibold text-gray-800 mb-2">Plane 2:</p>
+                <p class="text-gray-600">Mình sẽ đi dạo, đi ngắm hồ hoặc đi lên đồi ngắm phố (Yên tâm, không có vắng đâu, mà cảnh đẹp lắm) sau đó đi cafe bánh ngọt rồi đi dạo.</p>
+            </div>
+            
+            <p class="text-lg font-bold text-gray-700 mb-4">Chị chọn cái nào?</p>
+            
+            <div class="space-y-4">
+                <button onclick="showMessage('both')" class="w-full bg-indigo-500 text-white font-bold py-3 px-6 rounded-full hover:bg-indigo-600 transition-colors duration-300">
+                    Both of them
+                </button>
+                <button onclick="handlePlanClick('Plane 1')" class="w-full bg-green-500 text-white font-bold py-3 px-6 rounded-full hover:bg-green-600 transition-colors duration-300">
+                    Chị thấy plane 1 hợp lí
+                </button>
+                <button onclick="handlePlanClick('Plane 2')" class="w-full bg-green-500 text-white font-bold py-3 px-6 rounded-full hover:bg-green-600 transition-colors duration-300">
+                    Chị thấy plane 2 hợp lí hơn
+                </button>
+                <button onclick="showMessage('no-plan')" class="w-full bg-red-500 text-white font-bold py-3 px-6 rounded-full hover:bg-red-600 transition-colors duration-300">
+                    Hông ưa cái nào
+                </button>
+            </div>
+        </div>
+
+        <!-- Trang 3 (Form liên hệ) -->
+        <div id="page3" style="display: none;">
+            <h1 class="text-3xl font-bold text-blue-500 mb-4">Quyết định rùi nheee !</h1>
+            <p class="text-xl text-gray-700 leading-relaxed mb-6">Mình sẽ đi khung giờ từ 4h30 chiều đổ đi nhenn. Cho phép em tới rước chị đi nhé ? bắn em cái địa chỉ thoy.</p>
+            
+            <form id="contact-form" class="mt-6 space-y-4">
+                <div>
+                    <input type="text" id="address-input" placeholder="Địa chỉ của chị" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <button type="submit" class="w-full bg-blue-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-600 transition-colors duration-300">
+                    Gửi
+                </button>
+            </form>
+        </div>
+
+        <!-- Trang 4 (Xác nhận cuối cùng) -->
+        <div id="page4" style="display: none;">
+            <h1 class="text-3xl font-bold text-green-500 mb-4">Chốt kèo nhen &lt;3</h1>
+            <p class="text-xl text-gray-700 leading-relaxed mb-6">Em sẽ tới đón chị với kế hoạch đã chọn!</p>
+            
+            <div class="text-left bg-gray-50 p-4 rounded-lg mb-4">
+                <p class="font-semibold text-gray-800 mb-2">Kế hoạch đã chọn:</p>
+                <p class="text-gray-600" id="final-plan"></p>
+            </div>
+            
+            <div class="text-left bg-gray-50 p-4 rounded-lg mb-6">
+                <p class="font-semibold text-gray-800 mb-2">Địa chỉ đón:</p>
+                <p class="text-gray-600" id="final-address"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hộp thông báo pop-up -->
+    <div id="popup-message" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 transition-opacity duration-300 hidden">
+        <div class="bg-white rounded-xl shadow-2xl p-6 text-center max-w-sm w-full transform scale-95 transition-transform duration-300">
+            <p id="popup-text" class="text-xl font-semibold mb-4"></p>
+            <button onclick="closeMessage()" class="w-full bg-pink-500 text-white font-bold py-2 px-4 rounded-full hover:bg-pink-600 transition-colors duration-300">
+                Đóng
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let selectedPlan = '';
+
+        function handleYesClick() {
+            document.getElementById('page1').style.display = 'none';
+            document.getElementById('page2').style.display = 'block';
+        }
+
+        function handlePlanClick(plan) {
+            selectedPlan = plan;
+            document.getElementById('page2').style.display = 'none';
+            document.getElementById('page3').style.display = 'block';
+        }
+
+        function showMessage(type) {
+            const popup = document.getElementById('popup-message');
+            const popupText = document.getElementById('popup-text');
+            
+            switch(type) {
+                case 'no':
+                    popupText.innerText = '=))) Phải đi, bấm nhầm òi';
+                    break;
+                case 'both':
+                    popupText.innerText = 'Chị tham quá :))';
+                    break;
+                case 'no-plan':
+                    popupText.innerText = '=)) ủa chưa rút kinh nghiệm hả ???';
+                    break;
+            }
+            
+            popup.classList.remove('hidden');
+            setTimeout(() => {
+                popup.querySelector('div').classList.remove('scale-95');
+            }, 10);
+        }
+
+        function closeMessage() {
+            const popup = document.getElementById('popup-message');
+            popup.querySelector('div').classList.add('scale-95');
+            setTimeout(() => {
+                popup.classList.add('hidden');
+            }, 300);
+        }
+
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const address = document.getElementById('address-input').value;
+
+            document.getElementById('final-plan').innerText = selectedPlan;
+            document.getElementById('final-address').innerText = address;
+
+            document.getElementById('page3').style.display = 'none';
+            document.getElementById('page4').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
+
